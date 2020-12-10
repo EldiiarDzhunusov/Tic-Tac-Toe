@@ -6,8 +6,6 @@
 #include <unistd.h> 
 
 
-//no input validation for other types rather than integer.
-
 int arr[3][3] = {{0,0,0},{0,0,0},{0,0,0}};
 char gameGUI[3][3] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
 char humanChar= ' ';
@@ -15,8 +13,8 @@ char compChar= ' ';
 int counter = 0;
 
 void printGame(){
-	
-	system("cls");
+	//Prints the Grid
+	system("cls"); //Clears the terminal, Does not work on online compilers
     printf("\n\n\tTic Tac Toe\n\n");
 
     printf("Player (%c)  vs  Computer (%c)\n\n\n",humanChar, compChar);
@@ -39,7 +37,7 @@ void printGame(){
 }
 
 void isWinner(int comp){
-	
+	//Determines the winner
 	if(counter<9){
 		
 		struct Situation{
@@ -107,13 +105,13 @@ void isWinner(int comp){
 
 
 int generate_random(){
-	//works
+	//generates a random number in range 0-2 inclusive
 	int rand_num = (rand() % (2 - 0 + 1)) + 0;
     return rand_num;
 }
 
 void equalize(int comp, int human){
-	//works
+	//copies the data from int array to char array
 	int i,j;
 	for(i=0; i<3; i++){
 		for(j =0; j<3;j++){
@@ -128,14 +126,14 @@ void equalize(int comp, int human){
 }
 
 void generate(int comp){
-	//works, but with random which is bad
+	//Generates computer moves
 	srand(time(0));
 	while(true){
 		int n = generate_random();
 		if(arr[n][0]==0 || arr[n][1]==0 ||arr[n][2]==0 ){
 			int m = (rand() % (2 - 0 + 1)) + 0; 
 			if(arr[n][m]==0){
-				arr[n][m]=comp; //this is for the computer 
+				arr[n][m]=comp;  
 				break;
 			}
 		}
@@ -143,6 +141,7 @@ void generate(int comp){
 }
 
 bool validate(int num1, int num2){
+	//validates if two integers are in range of the grid
 	if ((num1==1 || num1==2 || num1==3) && (num2==1 || num2==2 || num2==3)){
 		return true;
 	}
@@ -166,6 +165,7 @@ int main(){
 		temp1 = 2;
 	}
 	const int human= temp1;
+	//chars for two users are also chosen randomly
 	if(comp==1){
 		compChar = 'O';
 		humanChar = 'X';
@@ -219,7 +219,7 @@ int main(){
 
 		isWinner(comp);
 		printf("Robot is thinking...\n");
-		sleep(1); //this feature is lit!
+		sleep(1); 
 		
 		generate(comp);
 		equalize(comp,human);
@@ -231,4 +231,3 @@ int main(){
 	}
 	return 0;
 }
-
